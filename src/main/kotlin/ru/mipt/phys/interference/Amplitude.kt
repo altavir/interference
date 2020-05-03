@@ -33,6 +33,7 @@ class CachedAmplitude(
     private var cachedValue = atomic<Complex>(ComplexField.zero)
 
     override suspend fun value(precision: Int, lambda: Double): Complex {
+        require(lambda == DEFAULT_LAMBDA){"Non-default lambdas are not supported"}
         return if (cachedPrecision.value > precision) {
             cachedValue.value
         } else {
